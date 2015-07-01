@@ -1,0 +1,24 @@
+{
+  "name": "clustermq",
+  "version": "0.1.0",
+  "description": "IPC message broker for io.js/Node.js cluster",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "unit": "mocha --recursive test/",
+    "test": "npm run unit && npm run lint"
+  },
+  "repository": "github:sonnyp/clusterMQ",
+  "keywords": [
+    "cluster",
+    "IPC",
+    "RPC",
+    "MQ"
+  ],
+  "author": "Sonny Piers <sonny@fastmail.net>",
+  "license": "MIT",
+  "homepage": "https://github.com/sonnyp/clusterMQ",
+  "devDependencies": {
+    "sandboxed-module": "^2.0.2"
+  }
+}
