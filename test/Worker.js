@@ -14,14 +14,15 @@ describe('Worker', function() {
     worker.send = function() {}
     worker.isConnected = true
     broker = new Worker(worker)
-    broker.onMessage = function() {}
+    broker._onmessage = function() {}
   })
 
   describe('_broadcast', function() {
 
-    it('sends a cluster.broadcast message to the proc', function() {
+    it('sends a cluster.broadcast message to the proc', function(done) {
       worker.send = function(message) {
         assert.deepEqual(message, {method: 'cluster.broadcast', payload: {method: 'foo', payload: {}}})
+        done()
       }
       broker._broadcast('foo', {})
     })
@@ -30,9 +31,10 @@ describe('Worker', function() {
 
   describe('_send', function() {
 
-    it('sends a cluster.send message to the proc', function() {
+    it('sends a cluster.send message to the proc', function(done) {
       worker.send = function(message) {
         assert.deepEqual(message, {method: 'cluster.send', payload: {to: 42, method: 'foo', payload: true}})
+        done()
       }
       broker._send(42, 'foo', true)
     })
@@ -41,10 +43,11 @@ describe('Worker', function() {
 
   describe('listen', function() {
 
-    it('starts listening on process for messages and calls onMessage', function() {
+    it('starts listening on process for messages and calls _onmessage', function(done) {
       var message = {}
-      broker.onMessage = function(m) {
+      broker._onmessage = function(m) {
         assert.equal(m, message)
+        done()
       }
       broker.listen()
       worker.emit('message', message)
@@ -55,8 +58,8 @@ describe('Worker', function() {
   describe('close', function() {
 
     it('stops listening on process', function() {
-      broker.onMessage = function() {
-        throw new Error('onMessage should not have been called')
+      broker._onmessage = function() {
+        throw new Error('_onmessage should not have been called')
       }
       broker.listen()
       broker.close()
