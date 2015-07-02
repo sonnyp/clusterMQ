@@ -17,8 +17,5 @@
   ],
   "author": "Sonny Piers <sonny@fastmail.net>",
   "license": "MIT",
-  "homepage": "https://github.com/sonnyp/clusterMQ",
-  "devDependencies": {
-    "sandboxed-module": "^2.0.2"
-  }
+  "homepage": "https://github.com/sonnyp/clusterMQ"
 }
