@@ -4,7 +4,8 @@
   "description": "IPC message broker for Node.js cluster",
   "main": "index.js",
   "scripts": {
-    "lint": "standard .",
+    "preversion": "npm run test",
+    "lint": "standard",
     "unit": "mocha --recursive test/",
     "test": "npm run unit && npm run lint"
   },
