@@ -6,8 +6,9 @@ var EventEmitter = require('events').EventEmitter
 var assert = require('assert')
 var Master = require('../lib/Master')
 
-var makeWorker = function () {
+var makeWorker = function (id) {
   var worker = new EventEmitter()
+  worker.id = id
   worker.isConnected = function () {
     return true
   }
@@ -20,9 +21,10 @@ describe('Master', function () {
   var worker
 
   beforeEach(function () {
-    worker = makeWorker()
+    worker = makeWorker(1)
     cluster = new EventEmitter()
-    cluster.workers = {1: worker}
+    cluster.workers = {}
+    cluster.workers[worker.id] = worker
     broker = new Master(cluster)
     broker._onmessage = function () {}
   })
@@ -38,6 +40,7 @@ describe('Master', function () {
 
   describe('_send', function () {
     it('sends a message to the worker', function () {
+      broker.listen()
       worker.send = function (message) {
         assert.deepEqual(message, {method: 'foo', payload: true})
       }
@@ -74,7 +77,7 @@ describe('Master', function () {
 
     it('listens on newly connected workers', function () {
       broker.listen()
-      var newWorker = makeWorker()
+      var newWorker = makeWorker(2)
       assert.equal(EventEmitter.listenerCount(newWorker, 'message'), 0)
       cluster.emit('online', newWorker)
       assert.equal(EventEmitter.listenerCount(newWorker, 'message'), 1)
