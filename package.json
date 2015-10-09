@@ -16,6 +16,6 @@
     "MQ"
   ],
   "author": "Sonny Piers <sonny@fastmail.net>",
-  "license": "MIT",
+  "license": "ISC",
   "homepage": "https://github.com/sonnyp/clusterMQ"
 }
