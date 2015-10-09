@@ -1,6 +1,6 @@
 {
   "name": "clustermq",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "IPC message broker for Node.js cluster",
   "main": "index.js",
   "scripts": {
