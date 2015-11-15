@@ -6,7 +6,7 @@
   "scripts": {
     "preversion": "npm run test",
     "lint": "standard",
-    "unit": "mocha --recursive test/",
+    "unit": "mocha test/*",
     "test": "npm run unit && npm run lint"
   },
   "repository": "github:sonnyp/clusterMQ",
@@ -18,5 +18,8 @@
   ],
   "author": "Sonny Piers <sonny@fastmail.net>",
   "license": "ISC",
-  "homepage": "https://github.com/sonnyp/clusterMQ"
+  "homepage": "https://github.com/sonnyp/clusterMQ",
+  "dependencies": {
+    "debug": "^2.2.0"
+  }
 }
